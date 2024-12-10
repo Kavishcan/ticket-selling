@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import LogDisplay from "./components/LogDisplay";
 import TicketDisplay from "./components/TicketDisplay";
 import NavBar from "./components/NavBar";
 import ConfigForm from "./components/ConfigForm";
 import VendorForm from "./components/VendorForm";
 import CustomerForm from "./components/CustomerForm";
+import StartButton from "./components/StartButton";
 
 function App() {
+  const [vendorCount, setVendorCount] = useState("");
+  const [customerCount, setCustomerCount] = useState("");
+
   return (
     <div>
       <NavBar />
@@ -15,8 +19,12 @@ function App() {
           <h2 className="mb-4">Configuration Form</h2>
           <ConfigForm />
           <div className="mt-4">
-            <VendorForm />
-            <CustomerForm />
+            <VendorForm setVendorCount={setVendorCount} />
+            <CustomerForm setCustomerCount={setCustomerCount} />
+            <StartButton
+              numVendors={vendorCount}
+              numCustomers={customerCount}
+            />
           </div>
         </div>
 

@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const VendorForm: React.FC = () => {
-  const [vendorCount, setVendorCount] = useState("");
+interface VendorFormProps {
+  setVendorCount: React.Dispatch<React.SetStateAction<string>>;
+}
 
-  const handleInputChange =
-    (setter: React.Dispatch<React.SetStateAction<string>>) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setter(event.target.value);
-    };
+const VendorForm: React.FC<VendorFormProps> = ({ setVendorCount }) => {
+  const [vendorCount, setLocalVendorCount] = useState("");
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setLocalVendorCount(value);
+    setVendorCount(value);
+  };
 
   const handleVendorSubmit = () => {
     axios
@@ -30,7 +34,7 @@ const VendorForm: React.FC = () => {
         type="text"
         className="form-control"
         value={vendorCount}
-        onChange={handleInputChange(setVendorCount)}
+        onChange={handleInputChange}
       />
       <button
         type="button"

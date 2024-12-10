@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const CustomerForm: React.FC = () => {
-  const [customerCount, setCustomerCount] = useState("");
+interface CustomerFormProps {
+  setCustomerCount: React.Dispatch<React.SetStateAction<string>>;
+}
 
-  const handleInputChange =
-    (setter: React.Dispatch<React.SetStateAction<string>>) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setter(event.target.value);
-    };
+const CustomerForm: React.FC<CustomerFormProps> = ({ setCustomerCount }) => {
+  const [customerCount, setLocalCustomerCount] = useState("");
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setLocalCustomerCount(value);
+    setCustomerCount(value);
+  };
 
   const handleCustomerSubmit = () => {
     axios
@@ -30,7 +34,7 @@ const CustomerForm: React.FC = () => {
         type="text"
         className="form-control"
         value={customerCount}
-        onChange={handleInputChange(setCustomerCount)}
+        onChange={handleInputChange}
       />
       <button
         type="button"
