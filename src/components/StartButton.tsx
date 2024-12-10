@@ -4,11 +4,13 @@ import axios from "axios";
 interface StartButtonProps {
   numVendors: string;
   numCustomers: string;
+  onStart: () => void;
 }
 
 const StartButton: React.FC<StartButtonProps> = ({
   numVendors,
   numCustomers,
+  onStart,
 }) => {
   const handleStart = () => {
     const params = new URLSearchParams({
@@ -20,6 +22,7 @@ const StartButton: React.FC<StartButtonProps> = ({
       .post(`http://localhost:8081/api/ticket-configuration/start?${params}`)
       .then((response) => {
         console.log("System started successfully:", response.data);
+        onStart(); // Call the onStart function to show logs
       })
       .catch((error) => {
         console.error("There was an error starting the system:", error);

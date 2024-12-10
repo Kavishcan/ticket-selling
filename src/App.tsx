@@ -10,6 +10,11 @@ import StartButton from "./components/StartButton";
 function App() {
   const [vendorCount, setVendorCount] = useState("");
   const [customerCount, setCustomerCount] = useState("");
+  const [showLogs, setShowLogs] = useState(false);
+
+  const handleStart = () => {
+    setShowLogs(true);
+  };
 
   return (
     <div>
@@ -24,6 +29,7 @@ function App() {
             <StartButton
               numVendors={vendorCount}
               numCustomers={customerCount}
+              onStart={handleStart}
             />
           </div>
         </div>
@@ -31,9 +37,7 @@ function App() {
         <div className="col p-5">
           <LogDisplay />
         </div>
-        <div className="col p-5">
-          <TicketDisplay />
-        </div>
+        <div className="col p-5">{showLogs && <TicketDisplay />}</div>
       </div>
     </div>
   );
