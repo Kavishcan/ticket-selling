@@ -20,15 +20,15 @@ function App() {
     };
 
   const handleSubmit = () => {
-    const data = {
-      numberOfTickets,
+    const params = new URLSearchParams({
+      totalTickets: numberOfTickets,
       ticketReleaseRate,
-      ticketRetrievalRate,
+      customerRetrievalRate: ticketRetrievalRate,
       maxTicketCapacity,
-    };
+    }).toString();
 
     axios
-      .post("/api/tickets", data)
+      .post(`/config?${params}`)
       .then((response) => {
         console.log("Data sent successfully:", response.data);
       })
